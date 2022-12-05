@@ -1,8 +1,14 @@
+<html>
+<head>
+<title> title page </title>
+</head>
+
+</html>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <html>
 <head>
-    <html lang="en"
     <meta charset="UTF-8">
     <style>
         #vocabulary {
@@ -48,32 +54,24 @@
             text-decoration: none;
         }
 
-        function delete_ok(id){
-            var a = confirm("정말로 삭제하겠습니까?");
-        if(a) location.href='delete/' + id;
-        }
-
-
     </style>
 </head>
 
-
 <body>
-<h1>My Diary</h1>
 
+<form name = "form" action = "about.html" method = "post">
 <div class="topnav">
-    <form action = "add.jsp">
 
     <a href="about">About</a>
     <a href="example">Example</a>
     <a href="noStyle">NoStyle</a>
     <a href="home">Home</a>
-
+</form>
 </div>
 
-<h1>My Diary </h1>
+<h1>My Vocabulary </h1>
 
-<table id="Diary">
+<table id="vocabulary">
     <tr>
         <th>#</th>
         <th>Level</th>
@@ -85,6 +83,24 @@
 
 
     </tr>
+    {result = [
+    <td>10</td>
+    <td>**</td>
+    <td>contamination</td>
+    <td>오염</td>
+    <td>2022-10-24</td>
+    <td>
+        <a href="form.php">Edit</a>
+    </td>
+    <td>
+        <a href="delelteform">Trash</a>
+    </td>
+    ]
+    }
+        {foreach $result as $result}
+    {result}
+        {/foreach}
+
     <tr>
         <td>10</td>
         <td>**</td>
@@ -115,7 +131,7 @@
     <tr>
         <td>8</td>
         <td>***</td>
-        <td>persistent</td>
+        <td>persisten</td>
         <td>끓임없는,계속되는</td>
         <td>2022-10-24</td>
         <td>
@@ -200,10 +216,8 @@
         <td>Trash</td>
 
     </tr>
-    </form>
 </table>
-<br>
-<a href="add.jsp">Add New Post</a>
+
 
 </body>
 </html>
