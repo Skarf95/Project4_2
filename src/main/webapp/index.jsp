@@ -1,8 +1,16 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@page import="com.example.dao.BoardDAO, com.example.bean.BoardVO,java.util.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    BoardDAO boardDAO = new BoardDAO();
+    List<BoardVO> list = boardDAO.getBoardList();
+    request.setAttribute("list",list);
+%>
+<!DOCTYPE html>
 <html>
 <head>
-    <html lang="en"
     <meta charset="UTF-8">
     <style>
         #vocabulary {
@@ -47,163 +55,47 @@
             padding: 24px 16px;
             text-decoration: none;
         }
-
+    </style>
+    <script>
         function delete_ok(id){
             var a = confirm("정말로 삭제하겠습니까?");
-        if(a) location.href='delete/' + id;
+            if(a) location.href='deletepost.jsp?id=' + id;
         }
-
-
-    </style>
+    </script>
 </head>
+<h1>Diary</h1>
 
-
-<body>
-<h1>My Diary</h1>
-
-<div class="topnav">
-    <form action = "add.jsp">
-
-    <a href="about">About</a>
-    <a href="example">Example</a>
-    <a href="noStyle">NoStyle</a>
-    <a href="home">Home</a>
-
-</div>
-
-<h1>My Diary </h1>
-
-<table id="Diary">
+<table id="list">
     <tr>
-        <th>#</th>
-        <th>Level</th>
-        <th>Word</th>
-        <th>Meaning</th>
-        <th>Date</th>
+        <th>Id</th>
+        <th>Category</th>
+        <th>Title</th>
+        <th>Writer</th>
+        <th>Content</th>
+        <th>FileName</th>
+        <th>Regdate</th>
+        <th>Editdate</th>
         <th>Edit</th>
         <th>Delete</th>
-
-
     </tr>
-    <tr>
-        <td>10</td>
-        <td>**</td>
-        <td>contamination</td>
-        <td>오염</td>
-        <td>2022-10-24</td>
-        <td>
-            <a href="editform">Edit</a>
-        </td>
-        <td>
-            <a href="delelteform">Trash</a>
-        </td>
-
-    </tr>
-    <td>9</td>
-    <td>***</td>
-    <td>Superintendent</td>
-    <td>관리자,감독관</td>
-    <td>2022-10-24</td>
-    <td>
-        <a href="editform">Edit</a>
-    </td>
-    <td>
-        <a href="delelteform">Trash</a>
-    </td>
-
-    </tr>
-    <tr>
-        <td>8</td>
-        <td>***</td>
-        <td>persistent</td>
-        <td>끓임없는,계속되는</td>
-        <td>2022-10-24</td>
-        <td>
-            <a href="editform">Edit</a>
-        </td>
-        <td>
-            <a href="delelteform">Trash</a>
-        </td>
-
-    </tr>
-    <tr>
-        <td>7</td>
-        <td>***</td>
-        <td>maintence</td>
-        <td>유지보부</td>
-        <td>2022-10-24</td>
-        <td>
-            <a href="editform">Edit</a>
-        </td>
-        <td>
-            <a href="delelteform">Trash</a>
-        </td>
-
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>***</td>
-        <td>flabbergast</td>
-        <td>깜짝 놀라게 하다</td>
-        <td>2022-10-24</td>
-        <td>Edit</td>
-        <td>Trash</td>
-
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>***</td>
-        <td>abomination</td>
-        <td>혐오스러운 것</td>
-        <td>2022-10-24</td>
-        <td>Edit</td>
-        <td>Trash</td>
-
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>*</td>
-        <td>sufficient</td>
-        <td>충분한</td>
-        <td>2022-10-24</td>
-        <td>Edit</td>
-        <td>Trash</td>
-
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>*</td>
-        <td>abhor</td>
-        <td>혐오하다</td>
-        <td>2022-10-24</td>
-        <td>Edit</td>
-        <td>Trash</td>
-
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>**</td>
-        <td>probationary</td>
-        <td>수습의</td>
-        <td>2022-10-24</td>
-        <td>Edit</td>
-        <td>Trash</td>
-
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>**</td>
-        <td>combustion</td>
-        <td>연소</td>
-        <td>2022-10-24</td>
-        <td>Edit</td>
-        <td>Trash</td>
-
-    </tr>
-    </form>
+    <c:forEach items="${list}" var="u">
+        <tr>
+            <td>${u.getSeq()}</td>
+            <td>${u.getCategory()}</td>
+            <td>${u.getTitle()}</td>
+            <td>${u.getWriter()}</td>
+            <td>${u.getContent()}</td>
+            <td><img src="${pageContext.request.contextPath }/upload/${u.getFileName()}" class="photo" width="100px"></td>
+                <%--		<td>${pageContext.request.contextPath }/upload/${u.getFileName()}</td>--%>
+            <td>${u.getRegdate()}</td>
+            <td>${u.getEditdate()}</td>
+            <td><a href="editform.jsp?id=${u.getSeq()}">Edit</a></td>
+            <td><a href="javascript:delete_ok('${u.getSeq()}')">Delete</a></td>
+        </tr>
+    </c:forEach>
 </table>
-<br>
-<a href="add.jsp">Add New Post</a>
-
+<br/><a href="addformpost.jsp">Add New Post</a>
 </body>
+</html>
+
 </html>

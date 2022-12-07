@@ -18,15 +18,20 @@
     String fileName = "";
     int sizeLimit = 15 * 1024 * 1024;
 
-    String directory = request.getServletContext().getRealPath("upload");
-    File file = new File(directory);
+    String realPath = request.getServletContext().getRealPath("upload");
+
+    File file = new File(realPath);
     if (!file.exists()) file.mkdir();
 
-    MultipartRequest multipartRequest = new MultipartRequest(request, directory, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+    MultipartRequest multipartRequest = new MultipartRequest(request, realPath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
     fileName = multipartRequest.getFilesystemName("photo");
 %>
-파일명: <%=fileName%></br>
+폼에서 전송된 원해 파일명 : <%multipartRequest.getOriginalFileName("photo")%><br />;
+업로드한 차일의 경로 : ${pageContext.request.contextPath }/upload/<%=fileName%>">
+물리적인 저장 경로: <%realPath%><br />
 <img src="${pageContext.request.contextPath }/upload/<%=fileName%>">
+
+파일명: <%=fileName%><br />
 </body>
 </html>
 

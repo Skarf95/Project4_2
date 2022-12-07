@@ -5,11 +5,13 @@ import java.util.Date;
 
 public class BoardVO {
 	private int seq;
+	private String category;
 	private String title;
 	private String writer;
 	private String content;
 	private Date regdate;
-	private int cnt;
+	private Date editdate;
+	private String fileName;
 	
 	public int getSeq() {
 		return seq;
@@ -35,16 +37,26 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegdate() {
-		return regdate;
-	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public int getCnt() {
-		return cnt;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
+	public void setEditdate(Date editdate) {
+		this.editdate = editdate;
 	}
+
+	public Date getEditdate() {return editdate;}
+
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {this.category = category;}
+
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) { this.fileName = fileName; }
 }
+
